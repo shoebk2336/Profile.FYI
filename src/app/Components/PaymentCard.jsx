@@ -62,6 +62,7 @@ const PaymentCard=()=>{
 
                 
                 <button
+                onClick={()=>alert('Payment done Succesfully')}
                 className="bg-blue-600 w-[80%] flex justify-center mx-auto mb-2 mt-4
                 py-3 rounded-md text-white font-semibold hover:bg-blue-500"
                 >Proceed to Checkout</button>

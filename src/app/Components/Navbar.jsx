@@ -1,5 +1,6 @@
 "use client"
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import {
 Dialog,
 DialogPanel,
@@ -21,6 +22,7 @@ SquaresPlusIcon,
 XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link'
 
 const products = [
 { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -36,14 +38,15 @@ const callsToAction = [
 
 export default function Navbar() {
 const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+const Cartqty=useSelector(state=>state.CartReducer)
 return (
     <header className="bg-white">
     <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
         <div className="flex ">
-        <a href="/" className="-m-1.5 p-1.5">
+        <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto" />
-        </a>
+        </Link>
         </div>
         <div className="flex lg:hidden">
         <button
@@ -55,19 +58,22 @@ return (
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
         </button>
         </div>
-        <div className='border-1 border-black flex justify-between flex-3 lg:w-[50%]'>
+        <div className=' hidden border-1 border-black md:flex justify-between flex-3 lg:w-[50%] '>
         <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Products</a>
         <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Mens</a>
         <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Women</a>
         <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Setting</a>
         </div>
         
-        
-        <div className='bg-blue-500 text-white hover:bg-blue-400 hover:cursor-pointer p-2 rounded-lg'>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 font-semibold">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-</svg>
-    </div>
+        <Link href='/Cart'>
+        <span class="inline-flex items-center rounded-md bg-blue-700  text-xs font-medium text-white px-2 py-1 rounded-full ring-1 ring-inset ring-gray-500/10">{Cartqty.length}</span>
+
+        <div className='bg-blue-500  md:visible text-white hover:bg-blue-400 hover:cursor-pointer p-2 rounded-lg'>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 font-semibold">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </svg>
+        </div>
+        </Link>
     </nav>
     <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-10" />
@@ -137,6 +143,9 @@ return (
                 >
                 Log in
                 </a>
+                <div>
+                <a href='/Cart' className='font-semibold text-base leading-7 text-gray-900'>Add to Cart</a>
+                </div>
             </div>
             </div>
         </div>

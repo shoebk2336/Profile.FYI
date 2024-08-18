@@ -14,7 +14,7 @@ const Cart=()=>{
     return(
         <>
         <Navbar/>
-        {CartProducts?.map((product)=><CartCard Data={product}/>)}
+        {CartProducts?.map((product)=><CartCard key={product.product_id} Data={product}/>)}
         <PaymentCard/>
         </>
     )

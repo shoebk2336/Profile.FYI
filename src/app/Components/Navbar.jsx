@@ -1,6 +1,6 @@
 "use client"
-
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
 import {
 Dialog,
 DialogPanel,
@@ -22,6 +22,7 @@ SquaresPlusIcon,
 XMarkIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link'
 
 const products = [
 { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
@@ -37,15 +38,15 @@ const callsToAction = [
 
 export default function Navbar() {
 const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+const Cartqty=useSelector(state=>state.CartReducer)
 return (
     <header className="bg-white">
     <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
-        <div className="flex lg:flex-1">
-        <a href="#" className="-m-1.5 p-1.5">
+        <div className="flex ">
+        <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img alt="" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" className="h-8 w-auto" />
-        </a>
+        </Link>
         </div>
         <div className="flex lg:hidden">
         <button
@@ -57,66 +58,22 @@ return (
             <Bars3Icon aria-hidden="true" className="h-6 w-6" />
         </button>
         </div>
-        <PopoverGroup className="hidden lg:flex lg:gap-x-12">
-        <Popover className="relative">
-            <PopoverButton className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-            Product
-            <ChevronDownIcon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-            </PopoverButton>
-
-            <PopoverPanel
-            transition
-            className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 data-[enter]:duration-200 data-[leave]:duration-150 data-[enter]:ease-out data-[leave]:ease-in"
-            >
-            <div className="p-4">
-                {products.map((item) => (
-                <div
-                    key={item.name}
-                    className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm leading-6 hover:bg-gray-50"
-                >
-                    <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
-                    <item.icon aria-hidden="true" className="h-6 w-6 text-gray-600 group-hover:text-indigo-600" />
-                    </div>
-                    <div className="flex-auto">
-                    <a href={item.href} className="block font-semibold text-gray-900">
-                        {item.name}
-                        <span className="absolute inset-0" />
-                    </a>
-                    <p className="mt-1 text-gray-600">{item.description}</p>
-                    </div>
-                </div>
-                ))}
-            </div>
-            <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
-                {callsToAction.map((item) => (
-                <a
-                    key={item.name}
-                    href={item.href}
-                    className="flex items-center justify-center gap-x-2.5 p-3 text-sm font-semibold leading-6 text-gray-900 hover:bg-gray-100"
-                >
-                    <item.icon aria-hidden="true" className="h-5 w-5 flex-none text-gray-400" />
-                    {item.name}
-                </a>
-                ))}
-            </div>
-            </PopoverPanel>
-        </Popover>
-
-        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Features
-        </a>
-        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Marketplace
-        </a>
-        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Company
-        </a>
-        </PopoverGroup>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-            Log in <span aria-hidden="true">&rarr;</span>
-        </a>
+        <div className=' hidden border-1 border-black md:flex justify-between flex-3 lg:w-[50%] '>
+        <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Products</a>
+        <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Mens</a>
+        <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Women</a>
+        <a className='text-sm font-semibold leading-6 text-gray-900  hover:cursor-pointer'>Setting</a>
         </div>
+        
+        <Link href='/Cart'>
+        <span class="inline-flex items-center rounded-md bg-blue-700  text-xs font-medium text-white px-2 py-1 rounded-full ring-1 ring-inset ring-gray-500/10">{Cartqty.length}</span>
+
+        <div className='bg-blue-500  md:visible text-white hover:bg-blue-400 hover:cursor-pointer p-2 rounded-lg'>
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 font-semibold">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+        </svg>
+        </div>
+        </Link>
     </nav>
     <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
         <div className="fixed inset-0 z-10" />
@@ -186,6 +143,9 @@ return (
                 >
                 Log in
                 </a>
+                <div>
+                <a href='/Cart' className='font-semibold text-base leading-7 text-gray-900'>Add to Cart</a>
+                </div>
             </div>
             </div>
         </div>
